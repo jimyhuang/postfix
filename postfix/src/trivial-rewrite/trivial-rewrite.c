@@ -559,10 +559,6 @@ static void pre_jail_init(char *unused_name, char **unused_argv)
 	resolve_regular.transport_info =
 	    transport_pre_init(resolve_regular.transport_maps_name,
 			   RES_PARAM_VALUE(resolve_regular.transport_maps));
-    if (*RES_PARAM_VALUE(resolve_verify.transport_maps))
-	resolve_verify.transport_info =
-	    transport_pre_init(resolve_verify.transport_maps_name,
-			    RES_PARAM_VALUE(resolve_verify.transport_maps));
     if (*RES_PARAM_VALUE(resolve_regular.snd_relay_maps))
 	resolve_regular.snd_relay_info =
 	    maps_create(resolve_regular.snd_relay_maps_name,
@@ -587,6 +583,10 @@ static void pre_jail_init(char *unused_name, char **unused_argv)
 			RES_PARAM_VALUE(resolve_verify.snd_def_xp_maps),
 			DICT_FLAG_LOCK | DICT_FLAG_FOLD_FIX
 			| DICT_FLAG_NO_REGSUB | DICT_FLAG_UTF8_REQUEST);
+    if (*RES_PARAM_VALUE(resolve_verify.transport_maps))
+	resolve_verify.transport_info =
+	    transport_pre_init(resolve_verify.transport_maps_name,
+			    RES_PARAM_VALUE(resolve_verify.transport_maps));
 }
 
 /* post_jail_init - initialize after entering chroot jail */
